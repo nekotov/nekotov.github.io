@@ -1,32 +1,44 @@
-title: Dev0ps
-description: "C++/C dev"
-author:
-  name: "Nekotov"
-  email: "nekto.nekotov@gmail.com"
-  url: "https://nekotov.software/"
+theme: jekyll-theme-hacker
+name: Nekotov blog
+description: Red teamer
+avatar: ../images/logo.png
+footer-links:
+  dribbble:
+  email:
+  facebook:
+  flickr:
+  github: nekotov
+  instagram:
+  linkedin:
+  pinterest:
+  rss:
+  twitter: sudo_sudo_su
+  stackoverflow:
+  youtube:
+  googleplus:
 
-baseurl: /
 
-source: .
-destination: ./_site
-permalink: /:title
-paginate: 3
-paginate_path: /page/:num/
+disqus:
+google_analytics:
+url:
+baseurl: ""
+permalink: /:title/
+version: v1.2.0
+kramdown:
+  input: GFM
+  syntax_highlighter: rouge
+  syntax_highlighter_opts:
+    css_class: 'highlight'
+sass:
+  style: :expanded # You might prefer to minify using :compressed
+gems:
+  - jekyll-sitemap # Create a sitemap using the official Jekyll sitemap gem
+  - jekyll-feed # Create an Atom feed using the official Jekyll feed gem
+  - jekyll-admin
 
-defaults:
-  -
-    scope:
-      path: ""
-      type: "posts"
-    values:
-      layout: "post"
-
-future: true
-plugins:
-  - jekyll-seo-tag
-  - jekyll-paginate
-  - jekyll-sitemap
-
-# Custom variables
-owner : "Nekotov"
-year : "2022"
+exclude:
+  - Gemfile
+  - Gemfile.lock
+  - LICENSE
+  - README.md
+  - CNAME
