@@ -6,12 +6,16 @@ layout: post
 ## Intro
 I came up with the idea to write a website parser in Python3. The site for the sale / purchase of used equipment is called CeX.
 
-##Idea
+## Idea
 After some research I found a button that requests information about products.
 
 ![Button image](https://i.imgur.com/7mgifnr.png)
 
+<sub>displays more products</sub>
+
 I click on it and…
+
+## Realisation
 
 I got a bunch of responses, but I got one interesting XHR request. Response for this was json.
 
@@ -53,3 +57,21 @@ Example of the first Json useful data object
     }
 }
 ```
+
+* Maximun resonce are 50 items.
+* Respoce -> json
+
+## I will collect :
+
+1. 'boxName'
+2. 'categoryName'
+3. 'categoryFriendlyName'
+4. 'superCatName'
+5. 'superCatFriendlyName'
+6. 'imageUrls'
+    - 'large'
+    - 'medium'
+    - 'small'
+7. 'sellPrice'
+8. 'cannotbuy' <sub> I`m not sure, but it can be useful </sub>
+
