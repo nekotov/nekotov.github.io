@@ -13,8 +13,6 @@ After some research I found a button that requests information about products.
 
 I click on it and…
 
-![Firefox dev tools](https://i.imgur.com/wVX99Nd.png)
-
 I got a bunch of responses, but I got one interesting XHR request. Response for this was json.
 
 Json data contains useful information and a number of total requests.
@@ -32,9 +30,9 @@ Example of the first Json useful data object
         "superCatName": "Electronics",
         "superCatFriendlyName": "Electronics",
         "imageUrls": {
-            "large": "https://nl.static.webuy.com/product_images/Electronica/Koptelefoons/SKOPSONWFXB700B_l.jpg",
-            "medium": "https://nl.static.webuy.com/product_images/Electronica/Koptelefoons/SKOPSONWFXB700B_m.jpg",
-            "small": "https://nl.static.webuy.com/product_images/Electronica/Koptelefoons/SKOPSONWFXB700B_s.jpg"
+            "large": "...",
+            "medium":"... "...",
+            "small": "..."..."
         },
         "isNewBox": 0,
         "sellPrice": 32,
