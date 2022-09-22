@@ -1,5 +1,11 @@
 _site
-.sass-cache
-.jekyll-cache
+.DS_Store
+.jekyll
 .jekyll-metadata
-vendor
+.bundle
+.sass-cache
+Gemfile
+Gemfile.lock
+node_modules
+package.jso
+.jekyll-cache

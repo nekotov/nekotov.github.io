@@ -6,9 +6,9 @@ permalink: /about/
 
 ### About me
 
-C C++ C# Java Python dev
+Red/purple teamer
 
 
 ### Contact me
 
-[@sudo_sudo_su](https://twitter.com/sudo_sudo_su)
+[@0xPat](https://twitter.com/0xPat)
