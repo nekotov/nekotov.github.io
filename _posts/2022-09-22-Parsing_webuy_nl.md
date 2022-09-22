@@ -31,8 +31,8 @@ Example of the first Json useful data object
         "superCatFriendlyName": "Electronics",
         "imageUrls": {
             "large": "...",
-            "medium":"... "...",
-            "small": "..."..."
+            "medium":"...",
+            "small": "..."
         },
         "isNewBox": 0,
         "sellPrice": 32,
