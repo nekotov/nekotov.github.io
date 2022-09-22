@@ -6,9 +6,9 @@ permalink: /about/
 
 ### About me
 
-Red/purple teamer
+Red teamer
 
 
 ### Contact me
 
-[@0xPat](https://twitter.com/0xPat)
+[@sudo_sudo_su](https://twitter.com/sudo_sudo_su)

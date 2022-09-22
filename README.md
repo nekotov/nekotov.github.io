@@ -1,2 +1,2 @@
-# 0xPat blog
-## Red/purple teamer
+# Nekotov blog
+## Red teamer
