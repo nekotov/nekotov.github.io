@@ -7,21 +7,21 @@ layout: post
 I came up with the idea to write a website parser in Python3. The site for the sale / purchase of used equipment is called CeX.
 
 ## Idea
-After some research I found a button that requests information about products.
+After some research, I found a button that requests information about products.
 
 ![Button image](https://i.imgur.com/7mgifnr.png)
 
-<sub>displays more products</sub>
+<sub>Displays more products</sub>
 
 I click on it and…
 
-## Realisation
+## Realization
 
-I got a bunch of responses, but I got one interesting XHR request. Response for this was json.
+I got a bunch of responses, but I got one interesting XHR request. Response for this was JSON.
 
-Json data contains useful information and a number of total requests.
+JSON data contains useful information and a number of total requests.
 
-Example of the first Json useful data object
+Example of the first JSON useful data object
 
 ```json
 {
@@ -58,8 +58,8 @@ Example of the first Json useful data object
 }
 ```
 
-* Maximun resonce are 50 items.
-* Respoce -> json
+* Maximum response is 50 items.
+* Response -> JSON
 
 ## I will collect :
 
@@ -77,7 +77,7 @@ Example of the first Json useful data object
 
 ## Fist try
 
-First things first... I`ll try to parse boxName. Code is:
+First things first... I’ll try to parse boxName. Code is:
 
 ```py
 import requests
@@ -97,6 +97,6 @@ And after some time I got working concept...
 
 ## Summary
 
-I compleate web parser in Python and sharing source code via [GitHub](https://github.com/nekotov/Cex-Parser).
+I complete web parser in Python and sharing source code via [GitHub](https://github.com/nekotov/Cex-Parser).
 
 Thanks for reading.
