@@ -63,16 +63,17 @@ Example of the first Json useful data object
 
 ## I will collect :
 
-1. 'boxName'
-2. 'categoryName'
-3. 'categoryFriendlyName'
-4. 'superCatName'
-5. 'superCatFriendlyName'
-6. 'imageUrls'
+1. 'boxId'
+2. 'boxName'
+3. 'categoryName'
+4. 'categoryFriendlyName'
+5. 'superCatName'
+6. 'superCatFriendlyName'
+7. 'imageUrls'
     - 'large'
     - 'medium'
     - 'small'
-7. 'sellPrice'
+8. 'sellPrice'
 
 ## Fist try
 
