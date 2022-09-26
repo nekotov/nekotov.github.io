@@ -73,7 +73,6 @@ Example of the first Json useful data object
     - 'medium'
     - 'small'
 7. 'sellPrice'
-8. 'cannotbuy' <sub> I`m not sure, but it can be useful </sub>
 
 ## Fist try
 
@@ -82,9 +81,13 @@ First things first... I`ll try to parse boxName. Code is:
 ```py
 import requests
 
-response = requests.get('https://wss2.cex.nl.webuy.io/v3/boxlists/hotproducts?superCatId=*&firstRecord=0&count=50')
+response = requests.get('https://wss2.cex.nl.webuy.io/v3/...')
 
 data = response.json()
 for item in data["response"]["data"]['boxlistsBoxes']:
     print(item['boxName'])
 ```
+
+## First concept
+
+
