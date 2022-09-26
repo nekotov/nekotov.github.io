@@ -75,7 +75,7 @@ Example of the first JSON useful data object
     - 'small'
 8. 'sellPrice'
 
-## Fist try
+## First try
 
 First things first... I’ll try to parse boxName. Code is:
 
