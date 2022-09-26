@@ -93,6 +93,9 @@ for item in data["response"]["data"]['boxlistsBoxes']:
 
 {% gist 1a0020653584b34e29d944c0454fafce %}
 
-## And after some time I got this:
+And after some time I got working concept...
 
+## Summary
 
+I compleate web parser in Python and sharing source code via ![GitHub](https://github.com/nekotov/Cex-Parser)
+Thanks for reading.
