@@ -97,5 +97,6 @@ And after some time I got working concept...
 
 ## Summary
 
-I compleate web parser in Python and sharing source code via ![GitHub](https://github.com/nekotov/Cex-Parser)
+I compleate web parser in Python and sharing source code via [GitHub](https://github.com/nekotov/Cex-Parser)
+
 Thanks for reading.
