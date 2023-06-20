@@ -1,5 +1,5 @@
 ---
-title: WiFiMap Scraping: How I Built My Own Offline WiFi Database
+title: WiFiMap Scraping or How I Built My Own Offline WiFi Database
 layout: post
 ---
 
