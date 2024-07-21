@@ -1,0 +1,223 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+<style>
+  body {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    margin: 0;
+    background-color: #f0f0f0;
+  }
+  .remote {
+    background-color: #333;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+  .button {
+    background-color: #444;
+    border: none;
+    color: white;
+    padding: 10px;
+    margin: 5px;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 16px;
+  }
+  .button:active {
+    background-color: #555;
+  }
+  .red-button {
+    background-color: red;
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  .fa-power-off {
+    font-size: 24px;
+  }
+  .directional-buttons {
+    display: grid;
+    grid-template-areas:
+      ". up ."
+      "left ok right"
+      ". down .";
+    gap: 10px;
+  }
+  #up { grid-area: up; }
+  #down { grid-area: down; }
+  #left { grid-area: left; }
+  #right { grid-area: right; }
+  #ok { grid-area: ok; }
+  .vol-buttons {
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+  }
+  #return {
+    width: 100%;
+  }
+</style>
+</head>
+<body>
+
+<div class="remote">
+  <button class="button red-button" id="power"><i class="fa fa-power-off"></i></button><br/>
+  <div class="vol-buttons">
+    <button class="button" id="Sel">Select</button>
+    <button class="button" id="Set">Settings</button>
+  </div>
+  <br>
+  <div class="directional-buttons">
+    <button class="button" id="up">Up</button>
+    <button class="button" id="left">Left</button>
+    <button class="button" id="ok">OK</button>
+    <button class="button" id="right">Right</button>
+    <button class="button" id="down">Down</button>
+  </div>
+  <br>
+  <button class="button" id="return">Return</button>
+  <br>
+  <div class="vol-buttons">
+    <button class="button" id="vol-up">Vol +</button>
+    <button class="button" id="vol-down">Vol -</button>
+  </div>
+  <button class="button" id="mute">Mute</button>
+  <br>
+  <div class="vol-buttons">
+    <button class="button" id="connectBleButton">Connect</button>
+    <button class="button" id="disconnectBleButton">Disconnect</button>
+  </div>
+  <p>BLE state: <strong><span id="bleState" style="color:#d13a30;">Disconnected</span></strong></p>
+</div>
+
+
+<script>
+const connectButton = document.getElementById('connectBleButton');
+const disconnectButton = document.getElementById('disconnectBleButton');
+const bleStateContainer = document.getElementById('bleState');
+
+
+var deviceName ='ESP32';
+var bleService = '19b10000-e8f2-537e-4f6c-d104768a1214';
+var ledCharacteristic = '19b10002-e8f2-537e-4f6c-d104768a1214';
+var sensorCharacteristic= '19b10001-e8f2-537e-4f6c-d104768a1214';
+
+
+var bleServer;
+var bleServiceFound;
+
+connectButton.addEventListener('click', (event) => {
+    if (isWebBluetoothEnabled()){
+        connectToDevice();
+    }
+});
+
+disconnectButton.addEventListener('click', disconnectDevice);
+
+function isWebBluetoothEnabled() {
+    if (!navigator.bluetooth) {
+        console.log("Web Bluetooth API is not available in this browser!");
+        bleStateContainer.innerHTML = "Web Bluetooth API is not available in this browser!";
+        return false
+    }
+    console.log('Web Bluetooth API supported in this browser.');
+    return true
+}
+
+function connectToDevice(){
+    console.log('Initializing Bluetooth...');
+    navigator.bluetooth.requestDevice({
+        filters: [{name: deviceName}],
+        optionalServices: [bleService]
+    })
+    .then(device => {
+        console.log('Device Selected:', device.name);
+        bleStateContainer.innerHTML = 'Connected' // to device ' + device.name;
+        bleStateContainer.style.color = "#24af37";
+        device.addEventListener('gattservicedisconnected', onDisconnected);
+        return device.gatt.connect();
+    })
+    .then(gattServer =>{
+        bleServer = gattServer;
+        console.log("Connected to GATT Server");
+        return bleServer.getPrimaryService(bleService);
+    })
+    .then(service => {
+            bleServiceFound = service;
+            console.log("Service discovered:", service.uuid);
+            return service.getCharacteristic(sensorCharacteristic);
+        })
+    // .then(value => {
+    //     console.log("Read value: ", value);
+    //     const decodedValue = new TextDecoder().decode(value);
+    //     console.log("Decoded value: ", decodedValue);
+    //     retrievedValue.innerHTML = decodedValue;
+    // })
+    .catch(error => {
+        console.log('Error: ', error);
+    })
+}
+
+function onDisconnected(event){
+    console.log('Device Disconnected:', event.target.device.name);
+    bleStateContainer.innerHTML = "Device disconnected";
+    bleStateContainer.style.color = "#d13a30";
+
+    connectToDevice();
+}
+
+function writeOnCharacteristic(value){
+    if (bleServer && bleServer.connected) {
+        bleServiceFound.getCharacteristic(ledCharacteristic)
+        .then(characteristic => {
+            console.log("Found the LED characteristic: ", characteristic.uuid);
+            const data = new Uint8Array([value]);
+            return characteristic.writeValue(data);
+        })
+        .catch(error => {
+            console.error("Error writing to the LED characteristic: ", error);
+        });
+    } else {
+        console.error ("Bluetooth is not connected. Cannot write to characteristic.")
+        window.alert("Bluetooth is not connected. Cannot write to characteristic. \n Connect to BLE first!")
+    }
+}
+
+function disconnectDevice() {
+    console.log("Disconnect Device.");
+    if (bleServer && bleServer.connected) {
+    } else {
+        
+        console.error("Bluetooth is not connected.");
+        window.alert("Bluetooth is not connected.")
+    }
+}
+
+// Add event listeners to handle clicks
+document.getElementById("power").addEventListener("click", function() { writeOnCharacteristic(0x1D); });
+document.getElementById("Sel").addEventListener("click", function() { writeOnCharacteristic(0x1F); });
+document.getElementById("Set").addEventListener("click", function() { writeOnCharacteristic(0x1E); });
+document.getElementById("up").addEventListener("click", function() { writeOnCharacteristic(0x09); });
+document.getElementById("down").addEventListener("click", function() { writeOnCharacteristic(0x01); });
+document.getElementById("left").addEventListener("click", function() { writeOnCharacteristic(0x0A); });
+document.getElementById("right").addEventListener("click", function() { writeOnCharacteristic(0x08); });
+document.getElementById("ok").addEventListener("click", function() { writeOnCharacteristic(0x0B); });
+document.getElementById("return").addEventListener("click", function() { writeOnCharacteristic(0x0D); });
+document.getElementById("vol-up").addEventListener("click", function() { writeOnCharacteristic(0x11); });
+document.getElementById("vol-down").addEventListener("click", function() { writeOnCharacteristic(0x15); });
+document.getElementById("mute").addEventListener("click", function() { writeOnCharacteristic(0x02); });
+</script>
+
+</body>
+</html>
